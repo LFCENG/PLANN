@@ -1,0 +1,37 @@
+@import url('./toolkit-light.min.css');
+
+.navbar-plann {
+    background-color: #fbd721;
+}
+
+.navbar-plann .navbar-nav>li>a, .navbar-plann .navbar-text{
+    color: black;
+}
+
+.navbar-plann .navbar-nav>.active>a, .navbar-plann .navbar-nav>.active>a:focus, .navbar-plann .navbar-nav>.active>a:hover {
+    background-color: white;
+    color: black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+}
+.navbar-plann .navbar-header {
+    padding-right: 40px;
+}
+.navbar-plann ul.navbar-nav {
+    margin-bottom: -1px;
+}
+.logo {
+    height: 50px;
+}
+.navbar-plann .navigation li {
+    cursor: pointer;
+    list-style-type: none;
+    -webkit-transition: all 0.3s ease-in;
+    -moz-transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+
+}
+.navbar-plann .navigation li:hover {
+    background: #333;
+}

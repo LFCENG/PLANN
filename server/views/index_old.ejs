@@ -1,0 +1,51 @@
+<% layout('layout_app') -%>     
+<div class="with-top-iconav">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid container-fluid-spacious">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand navbar-brand-emphasized" href="#">
+          <span class="logo navbar-brand-icon"></span>
+        </a>
+      </div>
+      <div class="iconav-slider">
+        <ul class="nav nav-pills iconav-nav">
+          <li >
+            <a href="#/dashboard" title="Dashboard" data-toggle="tooltip" data-placement="right" data-container="body">
+              <span class="icon icon-laptop"></span>
+              <small class="iconav-nav-label visible-xs-block">Dashboard</small>
+            </a>
+          </li>
+          <li >
+            <a href="#/projects" title="Projects" data-toggle="tooltip" data-placement="right" data-container="body">
+              <span class="icon icon-briefcase"></span>
+              <small class="iconav-nav-label visible-xs-block">Projects</small>
+            </a>
+          </li>
+          <li >
+            <a href="#" title="Settings" data-toggle="tooltip" data-placement="right" data-container="body">
+              <span class="icon icon-sound-mix"></span>
+              <small class="iconav-nav-label visible-xs-block">Settings</small>
+            </a>
+          </li>
+          <li class="active">
+            <a href="#" title="Log out" data-toggle="tooltip" data-placement="right" data-container="body">
+              <span class="icon icon-remove-user"></span>
+              <small class="iconav-nav-label visible-xs-block">Log out</small>
+            </a>
+          </li>
+        </ul>
+      </div>
+  </nav>
+  </div>
+</div>
+  <div class="container">
+    <div ng-view></div>
+  </div>
+
+  
