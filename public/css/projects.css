@@ -1,0 +1,24 @@
+@media screen and (min-width: 50em) {
+    .card-notes {
+        width: 50%; 
+    }
+}
+
+.toolbar-wrapper{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+button a, button a:hover, button a:focus{
+    color: inherit;
+    text-decoration: inherit;
+    outline: inherit;
+}
+
+.new-project, .new-project-container {
+    margin-top: 20px;
+}
+
+.input-daterange .input-group-addon {
+    background-color: white;
+    border: inherit;
+}

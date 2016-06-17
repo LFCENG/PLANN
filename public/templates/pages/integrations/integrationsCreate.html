@@ -1,0 +1,15 @@
+<div class="new-project">
+  <div class="new-project-container">
+    <ul class='errors' ng-if="errors">
+      <li ng-repeat="error in errors">{{error}}</li>
+    </ul>
+    
+    <form class="form">
+      <fieldset class="form-field">
+        <label class="form-label" for="token">Token</label>
+        <input class="form-input" name="token" ng-model="integration.token" />
+      </fieldset>
+      <button class="btn" ng-click="updateIntegration(integration)" ng-disabled="updating">{{updating ? 'Saving...' : 'Save'}}</button>
+    </form>
+  </div>
+</div>

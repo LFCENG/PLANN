@@ -1,0 +1,23 @@
+<div class="integrations-wrapper">
+  <div class="integration-body">
+    <h1>Toggle Integration</h1>
+    <a class="btn-b" href='#/integrations/new/toggl'>
+      <i class="icon add"></i>
+      Toggle Integration
+    </a>
+  </div>
+  
+  <div class="integration-body">
+    <h1>InvoiceXpress Integration</h1>
+    <a class="btn-b" href='#/integrations/new/invoicexpress'>
+      <i class="icon add"></i>
+      Invoicexpress Integration
+    </a>
+  </div>
+</div>
+
+<div class="integrations-wrapper">
+  <div ng-repeat="integration in integrations">
+    {{integration.integration}}: {{integration.token}}
+  </div>
+</div>

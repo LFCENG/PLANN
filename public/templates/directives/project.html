@@ -1,0 +1,46 @@
+<div class="new-project" ng-tranclude>
+  <div class="dashhead">
+    <div class="dashhead-titles">
+      <h2 class="dashhead-title">P{{project.reference}} - {{project.title}}</h2>
+    </div>
+  </div>
+  
+  <div class="new-project-container">
+    <ul class='errors' ng-if="errors">
+      <li ng-repeat="error in errors">{{error}}</li>
+    </ul>
+    
+    <form class="form">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Client"  name="client" ng-model="project.client">
+      </div>
+      
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Owner"  name="owner" ng-model="project.owner">
+      </div>
+      
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Description"  name="description" ng-model="project.description">
+      </div>
+      
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Address"  name="address" ng-model="project.address">
+      </div>
+      
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Status"  name="status" ng-model="project.status">
+      </div>
+      
+      <div class="form-group">
+        <input type="text" data-date-today-btn="true" data-date-today-hightlight="true" data-provide="datepicker" data-date-format="dd MM yyyy" class="form-control" placeholder="Deadline" name="deadline" ng-model="project.deadline"  format-filter="dd MMMM yyyy" formatted-date>
+      </div>
+      
+      <!--<button class="btn" ng-click="updateProject(project)" ng-disabled="updating">{{updating ? 'Saving...' : 'Save'}}</button> -->
+    </form> 
+    <!--
+        <div class="card-hidden">
+          <a ng-href='#/project/{{id}}' ng-bind-html="body"></a>
+        </div>
+        -->
+  </div>
+</div>

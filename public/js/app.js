@@ -1,6 +1,12 @@
 'use strict';
-define(['routes'], function (routes) {
-    var app = angular.module('plann', ['ngRoute', 'ngResource', 'routeResolverServices', 'Gravatar'])
+define(['routes', 'moment'], function (routes, moment) {
+    var app = angular.module('plann', ['ngMaterial', 'ngRoute', 'ngResource', 'routeResolverServices', 'Gravatar']);
+    app.config(function ($mdDateLocaleProvider) {
+        $mdDateLocaleProvider.formatDate = function(date) {
+            moment().locale();
+            return moment(date).format('LL');
+        };
+    });
     app.config(['$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
                 function ($controllerProvider, $compileProvider, $filterProvider, $provide) {
                     app.register =
@@ -9,7 +15,7 @@ define(['routes'], function (routes) {
                             directive: $compileProvider.directive,
                             filter: $filterProvider.register,
                             factory: $provide.factory,
-                            service: $provide.se5rvice
+                            service: $provide.service
                         };
                 }]);
     app.config(routes);

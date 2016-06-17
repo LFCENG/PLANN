@@ -1,11 +1,12 @@
 'use strict'
-
-define(['app'], function () {
-    app.factory('Project', function ProjectFactory($resource) {
-        return $resource('/projects/:id', {}, {
+define(['app'], function (app) {
+    
+    app.factory('Project', ['$resource', function ($resource) {
+        return $resource('/project/:id', {cache: true}, {
             update: {
                 method: 'PUT'
             }
         });
-    });
+    }]);
+    
 });

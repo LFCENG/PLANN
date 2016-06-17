@@ -8,7 +8,11 @@ require('./config/express')(app, express);
 
 // Set Routes
 var userRoutes = require('./routes/user');
+var projectRoutes = require('./routes/project');
+var integrationRoutes = require('./routes/integration');
 app.use('/', userRoutes);
+app.use('/project/', projectRoutes);
+app.use('/integration/', integrationRoutes);
 
 // Create Server
 module.exports = app;
