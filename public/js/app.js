@@ -1,6 +1,11 @@
 'use strict';
 define(['routes', 'moment'], function (routes, moment) {
-    var app = angular.module('plann', ['ngMaterial', 'ngRoute', 'ngResource', 'routeResolverServices', 'Gravatar']);
+    var app = angular.module('plann', ['angularResizable', 'ngMaterial', 'ngRoute', 'ngResource', 'routeResolverServices', 'Gravatar']);
+    app.config(function ($mdThemingProvider) {
+        $mdThemingProvider.theme('default')
+            .primaryPalette('yellow')
+            .accentPalette('blue-grey');
+    });
     app.config(function ($mdDateLocaleProvider) {
         $mdDateLocaleProvider.formatDate = function(date) {
             moment().locale();

@@ -1,0 +1,76 @@
+<div class="toolbar-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <button ng-click="toggleRight(false)" class="btn btn-success-outline"> New Project </button>
+    </div>
+  </div>
+</div>
+<p ng-hide="projects.length > 0">Nothing here to show you, friend.</p>
+<div ng-show="projects.length > 0" class="projects-wrapper">
+  <div class="dashhead">
+    <div class="dashhead-titles">
+      <h2 style="margin-top: 12px" class="dashhead-title">Projects</h2>
+    </div>
+    <div class="btn-toolbar dashhead-toolbar">
+      <div class="btn-toolbar-item input-with-icon">
+        <input style="padding-left: 30px !important" type="text" class="form-control input-block" placeholder="Search projects">
+        <span class="icon icon-magnifying-glass"></span>
+      </div>
+      <div class="btn-group">
+        <md-content layout-padding>
+          <md-datepicker md-placeholder="Enter start date" ng-model="startDateSearch" md-open-on-focus>
+          </md-datepicker>
+          <span class="">to</span>
+          <md-datepicker md-placeholder="Enter end date" ng-model="endDateSearch" md-open-on-focus>
+          </md-datepicker>
+        </md-content>
+      </div>
+      <div class="btn-group">
+        <button ng-click="fetchTogglTimes()" type="button" class="btn btn-primary-outline">Get Toggl Times</button>
+        <button ng-click="fetchInvoiceXpressPrice()" type="button" class="btn btn-primary-outline">Get InvoiceXpress Price</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="table-full">
+    <div class="table-responsive">
+      <table class="table tablesorter {sortlist: [[0,1]}" data-sort="table">
+        <thead>
+          <tr>
+            <th class="header headerSortDown">Reference</th>
+            <th class="header">Title</th>
+            <th class="header">Client</th>
+            <th class="header">Description</th>
+            <th class="header">Status</th>
+            <th class="header">Deadline</th>
+            <th class="header">Finished Date</th>
+            <th class="header">Total Time Spent</th>
+            <th class="header">Price</th>
+            <th class="header">Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="project in projects" ng-click="toggleRight(project)" on-finish-render="ngRepeatFinished">
+            <td>{{project.reference}}</td>
+            <td>{{project.title}}</td>
+            <td>{{project.client}}</td>
+            <td>{{project.description}}</td>
+            <td>{{project.status}}</td>
+            <td>{{project.deadline | date: "dd MMMM yyyy"}}</td>
+            <td>{{project.finishedDate | date: "dd MMMM yyyy"}}</td>
+            <td>{{project.time}}</td>
+            <td>{{project.price | currency: "&euro; "}}</td>
+            <td>{{project.created | date: "dd MMMM yyyy"}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <!-- RIGHT SIDENAV-->
+  <md-sidenav id="sidenav" class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+    <md-toolbar class="md-theme-light">
+      <h1 class="md-toolbar-tools">{{editTitle}}</h1>
+    </md-toolbar>
+    <project project="activeProject"></project>
+  </md-sidenav>

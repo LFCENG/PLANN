@@ -1,0 +1,6 @@
+md-toolbar{
+    max-height: 50px;
+}
+.navbar-fixed-top {
+    z-index: 50;
+}

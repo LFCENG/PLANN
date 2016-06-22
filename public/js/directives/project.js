@@ -6,7 +6,7 @@ define(['app'], function (app) {
         return {
             replace: true,
             restrict: "E",
-            transclude: true,
+            //transclude: true,
             scope: {
                 project: "=",
                 updating: "="

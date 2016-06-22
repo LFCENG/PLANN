@@ -9,9 +9,30 @@ define(['app'], function (app) {
                 });
         };
         
+        $scope.deleteProject = function (project) {
+            $scope.errors = null;
+            $scope.updating = true;
+            project.$delete(project).catch(function (projectData) {
+                $scope.errors = [projectData.data.error];
+            }).finally(function () {
+                $scope.updating = false;
+                $scope.projects.splice(project.$index, 1);
+                $scope.hide();
+            });
+        };
         
-        
-        
+        $scope.updateProject = function (project) {
+            $scope.errors = null;
+            $scope.updating = true;
+            project.$update(project).catch(function (projectData) {
+                $scope.errors = [projectData.data.error];
+            }).finally(function () {
+                $scope.updating = false;
+                $scope.hide();
+            });
+        };
+
+        /*
         $scope.updateProject = function (project) {
             $scope.errors = null;
             $scope.updating = true;
@@ -20,6 +41,7 @@ define(['app'], function (app) {
             }).finally(function() {
                 $scope.updating = false;
             });
-        };        
+            };
+        */
     }]);
 });

@@ -12,6 +12,7 @@ require.config({
         angularAnimate: 'libs/angular-animate.min',
         angularAria: 'libs/angular-aria.min',
         angularMessages: 'libs/angular-messages.min',
+        angularResizable: 'libs/angular-resizable.min',
         moment: 'libs/moment-with-locales.min',
         navbar: 'custom/navbar',
         tablesorter: 'libs/tablesorter.min'
@@ -25,17 +26,19 @@ require.config({
         angularAria: ['angular'],
         angularMessages: ['angular'],
         angularMaterial: ['angular', 'angularAnimate', 'angularAria', 'angularMessages'],
+        angularResizable: ['angular'],
         toolkit: ['jquery'],
         tablesorter: ['jquery'],
         navbar: ['tablesorter'],
         moment: {'exports': 'moment'},
-        app: ['angular', 'angularRoute','angularResource',  'toolkit', 'markdown', 'navbar', 'angularMaterial', 'moment']
+        app: ['angular', 'angularRoute','angularResource',  'toolkit', 'markdown', 'navbar', 'angularMaterial', 'moment', 'angularResizable']
     },
 });
 
 require([
     'app',
     'moment',
+    'angularResizable',
     'services/routeResolver',
     'services/gravatar',
     // 'resources/project',

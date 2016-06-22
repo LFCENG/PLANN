@@ -1,86 +1,58 @@
 'use strict'
 define(['app'], function (app) {
+    app.register.filter('picker', ['$filter', function ($filter) {
+        return function () {
+            var filterName = [].splice.call(arguments, 1, 1)[0];
+            if (filterName) {
+                return $filter(filterName).apply(null, arguments);
+            } else {
+                return $filter();
+            }
+        };
+    }]);
     app.register.controller('ProjectsController', ['Project', '$scope','$http', '$timeout', '$mdSidenav', '$log',  function (Project, $scope, $http, $timeout, $mdSidenav, $log) {
         $scope.$watch(function () {
             return Project.query();
         }, function (projects) {
             $scope.projects = projects;      
         });
-        $scope.toggleRight = buildToggler('right');
-        $scope.isOpenRight = function(){
-            return $mdSidenav('right').isOpen();
-        };
-        function debounce(func, wait, context) {
-            var timer;
-            return function debounced() {
-                var context = $scope,
-                args = Array.prototype.slice.call(arguments);
-                $timeout.cancel(timer);
-                timer = $timeout(function() {
-                    timer = undefined;
-                    func.apply(context, args);
-                }, wait || 10);
-            };
-        }        
-        function buildDelayedToggler(navID) {
-            return debounce(function() {
-                // Component lookup should always be available since we are not using `ng-if`
-                $mdSidenav(navID)
-                    .toggle()
-                    .then(function () {
-                        $log.debug("toggle " + navID + " is done");
-                    });
-            }, 200);
-        }
-         function buildToggler(navID) {
-             return function() {
-                 // Component lookup should always be available since we are not using `ng-if`
-                 $mdSidenav(navID)
-                     .toggle()
-                     .then(function () {
-                         $log.debug("toggle " + navID + " is done");
-                     });
-             }
-         }
-        $scope.startDate = new Date();
-        
-        $scope.deleteProject = function (project) {
-            $scope.errors = null;
-            $scope.updating = true;
-            project.$delete(project).catch(function (projectData) {
-                $scope.errors = [projectData.data.error];
-            }).finally(function () {
-                $scope.updating = false;
-                $scope.projects.splice(project.$index, 1);
-                $scope.hide();
-            });
-        };
-        $scope.updateProject = function (project) {
-            $scope.errors = null;
-            $scope.updating = true;
-            project.$update(project).catch(function (projectData) {
-                $scope.errors = [projectData.data.error];
-            }).finally(function () {
-                $scope.updating = false;
-                $scope.hide();
-            });
-        };
+        $scope.tableColumns = [
+            {title:'Reference' , key: 'reference', filter: null},
+            {title: 'Title', key: 'title', filter: null},
+            {title: 'Client', key: 'client', filter: null},
+            {title: 'Description', key: 'description', filter: null},
+            {title: 'Status', key: 'status', filter: null},
+            {title: 'Deadline', key: 'deadline', filter: null},
+            {title: 'Finished Date', key: 'finishedDate', filter: null},
+            {title: 'Total Time Spent', key: 'time', filter: null},
+            {title: 'Price', key: 'price', filter: null}, 
+            {title: 'Created', key: 'created', filter: 'date', filterValue: 'dd MMMM yyyy'}
+        ];
+        $scope.startDateSearch = new Date();
+        $scope.endDateSearch = new Date();
         $scope.activeProject = {};        
-        $scope.showModal = false;
-        $scope.hide = function(){
-            $scope.showModal = false;
+        
+        $scope.toggleRight = function (project) {
+            if (project) {
+                $scope.editTitle = "Edit Project";
+                $scope.activeProject = project;
+            } else {
+                $scope.editTitle = "New Project";
+            }
+            buildToggler('right');
+        };
+        
+        function buildToggler(navID) {
+            $mdSidenav(navID)
+                .toggle()
+                .then(function () {
+                    $log.debug("toggle " + navID + " is done");
+                });
         }
-
-        $scope.showProject = function (project) {
-            $scope.activeProject = project;
-            $scope.showModal = true;
-        }
-        $scope.modalShow = function(){
-            console.log('model shown');
-        }
-        $scope.modalHide = function(){
-            console.log('model hidden');
-        }
+        
+        
+        
+        
         $scope.fetchTogglTimes = function () {
             $http.get('/project/integrations/toggl').then(function (res) {
                 var projects = $scope.projects;
