@@ -7,6 +7,28 @@ var Integration = require('../models/integration');
 var passport = require('passport');
 var TogglClient = require('toggl-api');
 var InvoiceXpressClient = require('invoicexpress');
+var multer  = require('multer');
+var upload = multer({ dest: 'uploads/' });
+var csv = require("fast-csv");
+var fs = require('fs');
+var utf8 = require('to-utf-8');
+
+var uploadProjectsFromCsvStream = function (file, userId) {
+    var stream = fs.createReadStream(file.path);
+    var csvStream = csv.parse({headers: true, ignoreEmpty: true })
+        .on('data', function (data) {
+            var projectData = data;
+            projectData.userId = userId;
+            console.log(projectData);
+            var project = new Project(projectData);
+            project.save();
+        })
+        .on('end', function () {
+            console.log('done');
+        });
+    stream.pipe(utf8()).pipe(csvStream);
+};
+
 router.route('/')
     .get(function (req, res) {
         if (!req.user) {
@@ -75,6 +97,26 @@ router.route('/integrations/:integration')
                 res.sendStatus(404);
             }
         });
+    });
+router.route('/fileupload')
+    .post(upload.single('file'), function (req, res) {
+        var userId = req.user.id;
+        var file = req.file;
+        console.log('UserId: ' + userId);
+        console.log('file: ');
+        console.log(file);
+        uploadProjectsFromCsvStream(file, userId);
+        res.sendStatus(200);
+
+        /*
+          var projectData = req.body;
+          projectData.userId = req.user.id;
+          var project = new Project(projectData);
+          project.save(function (err, project) {
+          console.log('project: ' + project);
+          res.status(200).send(project);
+          });
+        */
     });
 
 module.exports = router;

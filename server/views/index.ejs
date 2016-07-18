@@ -1,5 +1,12 @@
 <% layout('layout_app') -%>     
-    <nav class="navbar navbar-plann navbar-inverse navbar-fixed-top">
+<div class="loading-container" ng-show="::false">
+  <div class="loading-circle">
+    <img src="/img/Logo_color.svg" class="loading-logo"></img>
+    <br>
+    <img src="/img/ring-alt.svg"></img>
+  </div>
+</div>
+<nav ng-cloak class="navbar navbar-plann navbar-inverse navbar-fixed-top">
   <div class="container-fluid container-fluid-spacious">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -17,36 +24,51 @@
       <ul class="nav navbar-nav navigation">
         <li>
           <a href="#/dashboard" title="Dashboard" data-toggle="tooltip" data-placement="right" data-container="body">
-            Dashboard
+            {{ 'DASHBOARD' | translate }}
           </a>
         </li>
         <li >
           <a href="#/projects" title="Projects" data-toggle="tooltip" data-placement="right" data-container="body">
-            Projects
+            {{ 'PROJECTS' | translate }}
           </a>
         </li>
         <li >
           <a href="#/settings" title="Settings" data-toggle="tooltip" data-placement="right" data-container="body">
-            Settings
+            {{ 'SETTINGS' | translate }}
           </a>
         </li>
         <li >
           <a href="#/integrations" title="Integrations" data-toggle="tooltip" data-placement="right" data-container="body">
-            Integrations
+            {{ 'INTEGRATIONS' | translate }}
           </a>
         </li>
 
         <li>
           <a href="/logout" title="Log out" data-toggle="tooltip" data-placement="right" data-container="body">
-            Log Out
+            {{ 'LOG_OUT' | translate }}
           </a>
         </li>
       </ul>
+      <div ng-cloak class="pull-right" ng-controller="LanguageController as lang">
+        <md-fab-speed-dial style="margin: -1px" md-direction="left" md-open="lang.isOpen" class="md-scale" ng-class="{ 'md-hover-full': lang.hover }" ng-mouseenter="lang.isOpen=true" ng-mouseleave="lang.isOpen=false">
+          <md-fab-trigger>
+            <md-button aria-label="menu" class="md-fab md-primary md-fab-mini white-background">
+              <span ng-bind-html="languages[defaultLanguage].img"></span>
+            </md-button>
+          </md-fab-trigger>
+          <div ng-repeat="item in languages">
+            <md-fab-actions>
+              <md-button ng-click="changeLanguage(item.langKey)" aria-label="{{item.name | translate }}" class="md-fab md-raised md-mini">
+                <span ng-bind-html="item.img"></span>
+            </md-fab-actions>
+          </div>
+        </md-fab-speed-dial>
+      </div>
     </div>
   </div>  
 </nav>
 
-<div class="container-fluid container-fluid-spacious">
+<div class="container-fluid container-fluid-spacious white-background">
   <div ng-view></div>
 </div>
 

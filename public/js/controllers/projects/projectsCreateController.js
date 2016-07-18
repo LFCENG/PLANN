@@ -1,7 +1,15 @@
 'use strict'
 define(['app'], function (app) {
     app.controller('ProjectsCreateController', ['Project','$scope', '$timeout', '$mdSidenav', '$log', function (Project, $scope, $timeout, $mdSidenav, $log) {
-        $scope.project = Project.create();
+        $scope.$watch(function () {
+            return Project.query();
+        }, function (projects) {
+            $scope.projects = projects;      
+        });
+        $scope.collapsed = false;
+        $scope.toggleCollapse = function () {
+            $scope.collapsed = $scope.collapsed ? false : true;
+        }
         $scope.close = function () {
             $mdSidenav('right').close()
                 .then(function () {
@@ -9,17 +17,31 @@ define(['app'], function (app) {
                 });
         };
         
-        $scope.deleteProject = function (project) {
+        $scope.deleteProject = function (project, index) {
             $scope.errors = null;
             $scope.updating = true;
-            project.$delete(project).catch(function (projectData) {
+            project.$delete(project).then(function (res) {    
+                $scope.projects.splice(index, 1);
+            }).catch(function (projectData) {
                 $scope.errors = [projectData.data.error];
             }).finally(function () {
                 $scope.updating = false;
-                $scope.projects.splice(project.$index, 1);
-                $scope.hide();
+                $scope.close();
             });
         };
+        
+        $scope.saveProject = function (project) {
+            $scope.errors = null;
+            $scope.updating = true;
+            project.$save().then(function (res) {
+                $scope.projects.push(res);
+            }).catch(function (projectData) {
+                $scope.errors = [projectData.data.error];
+            }).finally(function (response) {
+                $scope.updating = false;
+                $scope.close();
+            });
+        }
         
         $scope.updateProject = function (project) {
             $scope.errors = null;
@@ -28,7 +50,7 @@ define(['app'], function (app) {
                 $scope.errors = [projectData.data.error];
             }).finally(function () {
                 $scope.updating = false;
-                $scope.hide();
+                $scope.close();
             });
         };
 

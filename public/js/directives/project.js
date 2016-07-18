@@ -9,6 +9,8 @@ define(['app'], function (app) {
             //transclude: true,
             scope: {
                 project: "=",
+                type: "=",
+                index: "=",
                 updating: "="
             },
             templateUrl: "templates/directives/project.html",

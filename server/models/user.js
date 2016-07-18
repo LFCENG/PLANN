@@ -6,8 +6,9 @@ var User = new Schema({
     username: {type: String, lowercase: true, unique: true, required: true},
     password : {type: String},
     created: { type: Date, default: Date.now },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 });
-
 User.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', User);

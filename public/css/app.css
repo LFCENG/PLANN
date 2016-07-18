@@ -4,6 +4,15 @@
 @import url('./projects.css');
 @import url('./overrides.css');
 
+.loading-container {
+    background-color: #fbd721;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
 .navbar-plann {
     background-color: #fbd721;
 }
@@ -64,3 +73,27 @@
 .form-control::-webkit-input-placeholder{
     color: #D3D3D3 !important;
 }
+
+.white-background {
+    background-color: #fff !important;
+}
+.md-fab-mini {
+    height: 40px !important;
+    width: 40px !important;
+    line-height: 40px !important;
+}
+.loading-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -200px;
+    margin-left: -75px;
+    width: 320px;
+    height: 320px;
+
+}
+.loading-logo {
+    height: 200px;
+    margin-left: -100px;
+}
+

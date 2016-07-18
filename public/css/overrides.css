@@ -4,3 +4,29 @@ md-toolbar{
 .navbar-fixed-top {
     z-index: 50;
 }
+.project-form  md-input-container {
+    width: 100%;
+} 
+.animate-show {
+    height: 35px;
+    -webkit-transition-timing-function: ease;
+    -o-transition-timing-function: ease;
+    transition-timing-function: ease;
+    -webkit-transition-duration: .5s;
+    -o-transition-duration: .5s;
+    transition-duration: .5s;
+    -webkit-transition-property: height,visibility;
+    -o-transition-property: height,visibility;
+    transition-property: height,visibility;
+    position: relative;
+    overflow: hidden;    
+}
+.animate-show.ng-hide {
+    height: 0px;
+}
+@media (max-width: 84px) {
+    md-sidenav {
+        width: 600px;
+        max-width: 600px;
+    }
+}

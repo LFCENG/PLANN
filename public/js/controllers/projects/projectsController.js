@@ -1,43 +1,65 @@
 'use strict'
 define(['app'], function (app) {
-    app.register.filter('picker', ['$filter', function ($filter) {
-        return function () {
-            var filterName = [].splice.call(arguments, 1, 1)[0];
-            if (filterName) {
-                return $filter(filterName).apply(null, arguments);
-            } else {
-                return $filter();
-            }
-        };
-    }]);
-    app.register.controller('ProjectsController', ['Project', '$scope','$http', '$timeout', '$mdSidenav', '$log',  function (Project, $scope, $http, $timeout, $mdSidenav, $log) {
+    app.register.controller('ProjectsController', ['Project', '$scope','$rootScope', '$http', '$timeout', '$mdSidenav', '$log','$sce','$translate',  function (Project, $scope, $rootScope, $http, $timeout, $mdSidenav, $log, $sce, $translate) {
         $scope.$watch(function () {
             return Project.query();
         }, function (projects) {
             $scope.projects = projects;      
         });
         $scope.tableColumns = [
-            {title:'Reference' , key: 'reference', filter: null},
-            {title: 'Title', key: 'title', filter: null},
-            {title: 'Client', key: 'client', filter: null},
-            {title: 'Description', key: 'description', filter: null},
-            {title: 'Status', key: 'status', filter: null},
-            {title: 'Deadline', key: 'deadline', filter: null},
-            {title: 'Finished Date', key: 'finishedDate', filter: null},
-            {title: 'Total Time Spent', key: 'time', filter: null},
-            {title: 'Price', key: 'price', filter: null}, 
-            {title: 'Created', key: 'created', filter: 'date', filterValue: 'dd MMMM yyyy'}
+            {key: 'reference', checked: true},
+            {key: 'title', filter: null, checked: true},
+            {key: 'client', filter: null, checked: true},
+            {key: 'description', filter: null, checked: true},
+            {key: 'status', filter: null, checked: true},
+            {key: 'deadline', filter: 'date', filterValue: 'dd MMMM yyyy', checked: true},
+            {key: 'finishedDate', filter: 'date', filterValue: 'dd MMMM yyyy', checked: true},
+            {key: 'time', filter: 'time', filterValue: 'h', checked: true},
+            {key: 'price', filter: 'currency', filterValue: '&euro; ', checked: true}, 
+            {key: 'created', filter: 'date', filterValue: 'dd MMMM yyyy', checked: true}
         ];
-        $scope.startDateSearch = new Date();
-        $scope.endDateSearch = new Date();
-        $scope.activeProject = {};        
+        $scope.trustHtml = function (text) {
+            return $sce.trustAsHtml(text);
+        };
+        $scope.searchCollapsed = false;
+        $scope.toggleSearchCollapse = function () {
+            $scope.searchCollapsed = $scope.searchCollapsed ? false : true;
+        }
         
-        $scope.toggleRight = function (project) {
-            if (project) {
-                $scope.editTitle = "Edit Project";
-                $scope.activeProject = project;
+        $scope.startDateSearch = null;//new Date();
+        $scope.endDateSearch = null;//new Date();
+        $scope.activeProject = {};        
+        $scope.editType = "new";
+        $scope.filterStartDate = function (project) {
+            if (!$scope.startDateSearch) {
+                return true;
+            }
+            if ( project && project.deadline && project.deadline >= $scope.startDateSearch) {
+                return true;
             } else {
-                $scope.editTitle = "New Project";
+                return false;
+            }
+        }
+        $scope.filterEndDate = function (project) {
+            if (!$scope.endDateSearch) {
+                return true;
+            }
+            if ($scope.endDateSearch && project && project.deadline && project.deadline <= $scope.endDateSearch) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        $scope.toggleRight = function (project, index) {
+            if (project) {
+                $scope.editTitle = "EDIT_PROJECT";
+                $scope.editType = "edit";
+                $scope.activeProject = project;
+                $scope.activeProjectIndex = index;
+            } else {
+                $scope.editTitle = "NEW_PROJECT";
+                $scope.editType = "new";
+                $scope.activeProject = Project.create();
             }
             buildToggler('right');
         };
@@ -49,9 +71,6 @@ define(['app'], function (app) {
                     $log.debug("toggle " + navID + " is done");
                 });
         }
-        
-        
-        
         
         $scope.fetchTogglTimes = function () {
             $http.get('/project/integrations/toggl').then(function (res) {

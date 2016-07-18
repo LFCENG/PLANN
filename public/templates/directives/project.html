@@ -1,65 +1,62 @@
-<div class="new-project">
+<div>
   <md-content ng-controller="ProjectsCreateController" layout-padding>
-    <form>
+    <form class="project-form">
       <md-input-container>
-        <label for="projectReference">Project Reference</label>
+        <label for="projectReference">{{'PROJECT_REFERENCE' | translate}}</label>
         <input type="text" id="projectReference" 
                ng-model="project.reference" md-autofocus>
       </md-input-container>
       <md-input-container>
-        <label for="projectTitle">Project Title</label>
+        <label for="projectTitle">{{'PROJECT_TITLE' | translate }}</label>
         <input type="text" id="projectTitle"
                ng-model="project.title">
       </md-input-container>
       <md-input-container>
-        <label for="projectClient">Client</label>
+        <label for="projectClient">{{ 'CLIENT' | translate }}</label>
         <input type="text" id="projectClient"
                ng-model="project.client">
       </md-input-container>
       <md-input-container>
-        <label for="projectOwner">Owner</label>
+        <label for="projectOwner">{{ 'OWNER' | translate }}</label>
         <input type="text" id="projectOwner"
                ng-model="project.owner">
       </md-input-container>
-      <md-input-container>
-        <label for="projectDescription">Project Description</label>
-        <input type="text" id="projectDescription"
-               ng-model="project.description">
-      </md-input-container>
-      <md-input-container>
-        <label for="projectAddress">Construction Address</label>
-        <input type="text" id="projectAddress"
-               ng-model="project.address">
-      </md-input-container>
-      <md-input-container>
-        <label for="projectStatus">Project Status</label>
-        <input type="text" id="projectStatus"
-               ng-model="project.status">
-      </md-input-container>
-      <md-input-container>
-        <label for="projectDeadline">Project Deadline Date</label>
-        <input type="date" id="projectDeadline"
-               ng-model="project.deadline">
-      </md-input-container>
+      <md-button ng-click="toggleCollapse()">{{collapsed ? 'HIDE_FILEDS' : 'SHOW_FIELDS' | translate}}</md-button>
+      <div ng-show="collapsed">
+        <md-input-container>
+          <label for="projectDescription"> {{'PROJECT_DESCRIPTION' | translate }}</label>
+          <input type="text" id="projectDescription"
+                 ng-model="project.description">
+        </md-input-container>
+        <md-input-container>
+          <label for="projectAddress"> {{'CONSTRUCTION_ADDRESS' | translate }}</label>
+          <input type="text" id="projectAddress"
+                 ng-model="project.address">
+        </md-input-container>
+        <md-input-container>
+          <label for="projectStatus">{{ 'PROJECT_STATUS' | translate }}</label>
+          <input type="text" id="projectStatus"
+                 ng-model="project.status">
+        </md-input-container>
+        <label for="projectDeadline">{{ 'PROJECT_DEADLINE_DATE' | translate}}</label>
+        <md-datepicker id="projectDeadline" md-placeholder="Enter date" ng-model="project.deadline" md-open-on-focus></md-datepicker>
+      </div>
     </form>
-    <div class="new-project-container">
-      <ul class='errors' ng-if="errors">
-        <li ng-repeat="error in errors">{{error}}</li>
-      </ul>
-    </div>
-    <md-button ng-disabled="updating" ng-click="updateProject(project)" class="btn btn-success">
-      {{updating ? 'Saving...' : 'Save Project'}}
+    <ul class='errors' ng-if="errors">
+      <li ng-repeat="error in errors">{{error}}</li>
+    </ul>
+    <md-button ng-hide="type == 'new'" ng-disabled="updating" ng-click="updateProject(project)" class="btn btn-success">
+      {{updating ? 'UPDATING' : 'EDIT_PROJECT' | translate}}
     </md-button>
-    <md-button ng-disabled="updating" ng-click="deleteProject(project)" class="btn btn-success">
-      {{updating ? 'Saving...' : 'Save Project'}}
+    <md-button ng-hide="type == 'edit'" ng-disabled="updating" ng-click="saveProject(project)" class="btn btn-success">
+      {{updating ? 'UPDATING' : 'CREATE_PROJECT' | translate}}
+    </md-button>
+    <md-button ng-hide="type == 'new'" ng-disabled="updating" ng-click="deleteProject(project, index)" class="btn btn-danger">
+      {{updating ? 'UPDATING' : 'DELETE_PROJECT' | translate}}
     </md-button>
     <md-button ng-click="close()" class="btn btn-default">
-      Close
+      {{ 'CLOSE' | translate }}
     </md-button>
   </md-content>
-<!--
-    <input type="text" data-date-today-btn="true" data-date-today-hightlight="true" data-provide="datepicker" data-date-format="dd MM yyyy" class="form-control" placeholder="Deadline" name="deadline" ng-model="project.deadline"  format-filter="dd MMMM yyyy" formatted-date>
-    -->    
-
 </div>
 

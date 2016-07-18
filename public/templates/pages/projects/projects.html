@@ -1,55 +1,87 @@
 <div class="toolbar-wrapper">
-  <div class="row">
-    <div class="col-lg-12">
-      <button ng-click="toggleRight(false)" class="btn btn-success-outline"> New Project </button>
+  <md-content layout="row" layout-align="start" layout-padding>
+    <div> 
+      <button ng-click="toggleRight(false)" class="btn btn-success-outline"> {{'NEW_PROJECT' | translate }} </button>
     </div>
-  </div>
+    <div ng-controller="UploadController">
+      <button ng-click="showBulkUploadPrompt($event)" class="btn btn-default-outline"> {{'BULK_UPLOAD' | translate }} </button>
+    </div>
+  </md-content>
 </div>
-<p ng-hide="projects.length > 0">Nothing here to show you, friend.</p>
+<p ng-hide="projects.length > 0">{{'EMPTY_PROJECTS' | translate }}</p>
 <div ng-show="projects.length > 0" class="projects-wrapper">
   <div class="dashhead">
     <div class="dashhead-titles">
-      <h2 style="margin-top: 12px" class="dashhead-title">Projects</h2>
+      <h2 style="margin-top: 12px" class="dashhead-title">{{'PROJECTS' | translate }}</h2>
     </div>
     <div class="dashhead-toolbar md-inline-form">
       <span flex></span>
       <md-input-container style="height: 30px" class="md-icon-float">
-        <label>Search Projects</label>
+        <label>{{'SEARCH_PROJECTS' | translate }}</label>
         <md-icon class="icon icon-magnifying-glass"></md-icon>
         <input ng-model="search" type="text">
       </md-input-container>
-      <md-datepicker md-placeholder="Enter start date" ng-model="startDateSearch" md-open-on-focus>
-      </md-datepicker>
-      <span class="">to</span>
-      <md-datepicker md-placeholder="Enter end date" ng-model="endDateSearch" md-open-on-focus>
-      </md-datepicker>
+      <md-button ng-click="toggleSearchCollapse()">{{searchCollapsed ? 'HIDE_ADVANCED_SEARCH' : 'ADVANCED_SEARCH' | translate}}</md-button>
+      <md-menu md-offset="0 55">
+        <md-button ng-click="$mdOpenMenu($event)" aria-label="Filter Columns">{{'FILTER_COLUMNS' | translate}}</md-button>
+        <md-menu-content width="2">
+          <md-menu-item ng-repeat="column in tableColumns">
+            <md-checkbox style="margin-left: 10px" class="md-primary" ng-model="column.checked" aria-label="column.key">
+              {{column.key | translate }}
+            </md-checkbox>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
       <md-button ng-click="fetchTogglTimes()" class="btn btn-primary-outline">Get Toggl Times</md-button>
-  <md-button ng-click="fetchInvoiceXpressPrice()" class="btn btn-primary-outline">Get Toggl Times</md-button>
+      <md-button ng-click="fetchInvoiceXpressPrice()" class="btn btn-primary-outline">Get Toggl Times</md-button>
     </div>
   </div>
-  
-  <div class="table-full">
-    <div class="table-responsive">
-      <table class="table tablesorter {sortlist: [[0,1]}" data-sort="table">
-        <thead>
-          <tr>
-            <th ng-repeat="column in tableColumns">{{column.title}}</th>
-          </tr>
-        </thead>
-        
-        <tbody>
-          <tr ng-repeat="project in projects" ng-click="toggleRight(project)" on-finish-render="ngRepeatFinished">
-            <td ng-repeat="column in tableColumns" >{{project[column.key] | picker: column.filter: column.filterValue}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div ng-show="searchCollapsed" class="search-toolbar animate-show">
+    <span flex></span>
+    <md-datepicker md-placeholder="{{ 'START_DATE' | translate }}" ng-model="startDateSearch" md-open-on-focus>
+    </md-datepicker>
+    <span class="">to</span>
+    <md-datepicker md-placeholder="{{'END_DATE' | translate }}" ng-model="endDateSearch" md-open-on-focus>
+    </md-datepicker>
   </div>
-  
-  <!-- RIGHT SIDENAV-->
-  <md-sidenav id="sidenav" class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
-    <md-toolbar class="md-theme-light">
-      <h1 class="md-toolbar-tools">{{editTitle}}</h1>
+  <div hide-gt-sm>
+    <md-content>
+      <md-list flex>
+        <md-list-item ng-repeat="project in projects |  filter: search | filter: filterEndDate | filter: filterStartDate" ng-click="toggleRight(project, $index)" class="md-12-line" on-finish-render="ngRepeatFinished">
+          <div class="md-list-item-text" layout="column">
+            <h3>{{project.reference}}</h3>
+            <h4>{{project.title}}</h4>
+            <p>{{project.description}}</p>
+          </div>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </div>
+  <div show-gt-sm hide flex>
+    <md-content flex layout-padding>
+      <div  class="table-full">
+        <div class="table-responsive">
+          <table class="table tablesorter {sortlist: [[0,1]}" data-sort="table">
+            <thead>
+              <tr>
+                <th ng-repeat="column in tableColumns" ng-show="column.checked">{{column.key | translate}}</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+              <tr ng-repeat="project in projects | filter: search" ng-click="toggleRight(project, $index)" on-finish-render="ngRepeatFinished">
+                <td ng-repeat="column in tableColumns" ng-show="column.checked" ng-bind-html="project[column.key] | picker: column.filter: column.filterValue"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      </md-content>
+  </div>
+    <!-- RIGHT SIDENAV-->
+    <md-sidenav id="sidenav" class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+      <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">{{editTitle | translate}}</h1>
     </md-toolbar>
-    <project project="activeProject"></project>
+    <project project="activeProject" index="activeProjectIndex" type="editType"></project>
   </md-sidenav>
