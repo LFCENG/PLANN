@@ -7,7 +7,17 @@ var User = new Schema({
     password : {type: String},
     created: { type: Date, default: Date.now },
     resetPasswordToken: String,
-    resetPasswordExpires: Date
+    resetPasswordExpires: Date,
+
+    name : {
+        first: {type: String},
+        last: {type: String}
+    },
+    companyName: {type: String},
+    companyUrl: {type: String},
+    companyType: {type: String},
+    defaultLanguage: {type: String},
+    role: {type: String}
 });
 User.plugin(passportLocalMongoose);
 

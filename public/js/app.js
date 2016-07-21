@@ -1,10 +1,15 @@
 'use strict';
 define(['routes', 'moment'], function (routes, moment) {
     var app = angular.module('plann', ['ngCookies', 'pascalprecht.translate', 'ngAnimate', 'ngSanitize', 'ngMaterial', 'ngRoute', 'ngResource', 'routeResolverServices', 'Gravatar']);
+    // FOR LATER: Push Themes, Translate Provider and Locales to separate files
     app.config(function ($mdThemingProvider) {
+        var plannYellowPalette = $mdThemingProvider.extendPalette('yellow', {'500': '#fbd721'});
+        $mdThemingProvider.definePalette('plannYellow', plannYellowPalette);
         $mdThemingProvider.theme('default')
-            .primaryPalette('yellow')
-            .accentPalette('blue-grey');
+            .primaryPalette('plannYellow', {'default':'500'})
+            .accentPalette('plannYellow', {'default': '500'})
+            .warnPalette('deep-orange');
+        
     });
     app.config(['$translateProvider', function ($translateProvider) {
         $translateProvider

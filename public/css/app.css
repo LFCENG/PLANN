@@ -4,6 +4,9 @@
 @import url('./projects.css');
 @import url('./overrides.css');
 
+body {
+    background-color: rgb(250,250,250);
+}
 .loading-container {
     background-color: #fbd721;
     position: fixed;
@@ -22,7 +25,7 @@
 }
 
 .navbar-plann .navbar-nav>.active>a, .navbar-plann .navbar-nav>.active>a:focus, .navbar-plann .navbar-nav>.active>a:hover {
-    background-color: white;
+    background-color: rgb(250,250,250);
     color: black;
     border-left: 1px solid black;
     border-right: 1px solid black;

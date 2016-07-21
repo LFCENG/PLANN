@@ -18,6 +18,21 @@ router.route('/')
         }
     });
 
+router.route('/account')
+    .get(function (req, res) {
+        res.status(200).send(req.user);
+    })
+router.route('/account/:id')
+    .put(function (req, res) {
+        var userData = req.body;
+        var query = {_id: req.user._id};
+        var update = userData;
+        var options = {upsert: false, multi: false};
+        User.update(query, update, options, function (err, result) {
+            res.status(200).send(userData);
+        });
+    });
+
 router.route('/forgot')
     .get(function (req, res) {
         res.render('forgotPassword', {msg: req.flash()});

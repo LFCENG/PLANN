@@ -59,6 +59,7 @@ require([
     'services/routeResolver',
     'services/gravatar',
     'services/project',
+    'services/account',
     'services/fileUpload',
     // 'resources/project',
     'resources/integration',

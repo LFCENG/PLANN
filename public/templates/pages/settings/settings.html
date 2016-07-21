@@ -1,1 +1,101 @@
-<div>settings</div>
+<div ng-cloak>
+  <md-content layout-padding>
+    <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+      <md-nav-item md-nav-sref="settings.account" name="account">{{'ACCOUNT' | translate}}</md-nav-item>
+      <md-nav-item md-nav-sref="settings.projects" name="projects">{{'PROJECTS' | translate}}</md-nav-item>
+    </md-nav-bar>
+    
+    <!-- ACCOUNT -->
+    <md-content layout-padding ng-if="currentNavItem =='account'">
+      <form class="form">
+        <md-input-container class="md-block">
+          <label for="email">{{'EMAIL' | translate }}</label>
+          <input type="email" id="email" ng-model="account.username">
+        </md-input-container>
+        <div layout-gt-sm="row">
+          <md-input-container  class="md-block" flex-gt-sm>
+            <label>{{'ROLE' | translate }}</label>
+            <md-select ng-model="account.role">
+              <md-option ng-repeat="role in roles" value="{{role | translate}}">
+                {{role | translate}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container  class="md-block" flex-gt-sm>
+            <label for="firstName">{{'FIRST_NAME' | translate }}</label>
+            <input type="text" id="firstName" ng-model="account.name.first">
+          </md-input-container>
+          <md-input-container  class="md-block" flex-gt-sm>
+            <label for="lastName">{{'LAST_NAME' | translate }}</label>
+            <input type="text" id="lastName" ng-model="account.name.last">
+          </md-input-container>
+        </div>
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label for="company">{{'COMPANY_NAME' | translate }}</label>
+            <input type="text" id="company" ng-model="account.companyName">
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label for="companyUrl">{{'COMPANY_URL' | translate }}</label>
+            <input type="url" id="company" ng-model="account.companyUrl">
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>{{'COMPANY_TYPE' | translate }}</label>
+            <md-select ng-model="account.companyType">
+              <md-option ng-repeat="type in companyTypes" value="{{type | translate}}">
+                {{type | translate}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        <md-input-container class="md-block">
+          <label>{{'DEFAULT_LANGUAGE' | translate }}</label>
+          <md-select ng-model="account.defaultLanguage">
+            <md-option ng-repeat="lang in languages" value="{{lang | translate}}">
+              {{lang | translate}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-button class="md-raised md-primary" ng-click="updateAccount(account)" ng-disabled="updating">{{updating ? 'Saving...' : 'Save'}}</md-button>
+      </form>
+    </md-content>
+    <!-- END OF ACCOUNT -->
+    <!-- PROJECTS -->
+    <md-content layout-padding ng-if="currentNavItem =='projects'">
+      <h3>{{'SETTINGS_PROJECTS_H1' | translate}}</h3>
+      <div class="table-full">
+        <div class="table-responsive">
+          <table class="table tablesorter {sortlist: [[0,1]}" data-sort="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>{{'FIELD_LABEL' | translate }}</th>
+                <th>{{'FIELD_TYPE' | translate}}</th>
+                <th>{{'REQUIRED' | translate }}</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+              <tr ng-repeat="field in fields">
+                <td><md-button class="md-warn">delete</md-button></td>
+                <td>{{field.name | translate}}</td>
+                <td>{{field.type | translate}}</td>
+                <td>{{field.required | translate}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+    </md-content>
+    <!-- END OF PROJECTS -->
+  </md-content>
+</div>
+  
