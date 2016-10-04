@@ -6,6 +6,7 @@ body {
     -o-background-size: cover;
     background-size: cover;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
+    height: 100vh;
 }
 
 .signUpBox {
@@ -19,6 +20,7 @@ body {
     background: white;
     border-radius: 3px 0 0 3px !important;
     padding:50px;
+    min-height: 400px;
 }
 .rightInfoSignup {
     border-radius: 0 3px 3px 0 !important;

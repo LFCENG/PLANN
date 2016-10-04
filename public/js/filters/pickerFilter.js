@@ -11,6 +11,8 @@ define(['app', 'moment'], function (app, moment) {
                 } else if (filterName == 'date') {
                     moment.locale($rootScope.lang);
                     return $sce.trustAsHtml(moment(arguments[0]).format('LL'));
+                } else if (filterName == "string") {
+                    return $sce.trustAsHtml(arguments[0]);
                 } else {
                     return $sce.trustAsHtml($filter(filterName).apply(null, arguments));
                 }

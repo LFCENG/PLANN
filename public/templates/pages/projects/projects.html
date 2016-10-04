@@ -3,9 +3,6 @@
     <div> 
       <button ng-click="toggleRight(false)" class="btn btn-success-outline"> {{'NEW_PROJECT' | translate }} </button>
     </div>
-    <div ng-controller="UploadController">
-      <button ng-click="showBulkUploadPrompt($event)" class="btn btn-default-outline"> {{'BULK_UPLOAD' | translate }} </button>
-    </div>
   </md-content>
 </div>
 <p ng-hide="projects.length > 0">{{'EMPTY_PROJECTS' | translate }}</p>
@@ -27,7 +24,7 @@
         <md-menu-content width="2">
           <md-menu-item ng-repeat="column in tableColumns">
             <md-checkbox style="margin-left: 10px" class="md-primary" ng-model="column.checked" aria-label="column.key">
-              {{column.key | translate }}
+              {{column.label | translate }}
             </md-checkbox>
           </md-menu-item>
         </md-menu-content>
@@ -64,24 +61,25 @@
           <table class="table tablesorter {sortlist: [[0,1]}" data-sort="table">
             <thead>
               <tr>
-                <th ng-repeat="column in tableColumns" ng-show="column.checked">{{column.key | translate}}</th>
+                <th ng-repeat="column in fields" ng-show="column.checked">{{column.label}}</th>
               </tr>
             </thead>
             
             <tbody>
               <tr ng-repeat="project in projects | filter: search" ng-click="toggleRight(project, $index)" on-finish-render="ngRepeatFinished">
-                <td ng-repeat="column in tableColumns" ng-show="column.checked" ng-bind-html="project[column.key] | picker: column.filter: column.filterValue"></td>
+                <td ng-repeat="column in fields" ng-show="column.checked" ng-bind-html="project[column.name] | picker: column.type: column.filterValue" on-finish-render="ngRepeatFinished"></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-      </md-content>
+    </md-content>
   </div>
-    <!-- RIGHT SIDENAV-->
-    <md-sidenav id="sidenav" class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
-      <md-toolbar class="md-theme-light">
-        <h1 class="md-toolbar-tools">{{editTitle | translate}}</h1>
-    </md-toolbar>
-    <project project="activeProject" index="activeProjectIndex" type="editType"></project>
-  </md-sidenav>
+</div>
+<!-- RIGHT SIDENAV-->
+<md-sidenav id="sidenav" class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+  <md-toolbar class="md-theme-light">
+    <h1 class="md-toolbar-tools">{{editTitle | translate}}</h1>
+  </md-toolbar>
+  <project project="activeProject" index="activeProjectIndex" type="editType"></project>
+</md-sidenav>

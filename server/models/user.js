@@ -8,7 +8,7 @@ var User = new Schema({
     created: { type: Date, default: Date.now },
     resetPasswordToken: String,
     resetPasswordExpires: Date,
-
+    
     name : {
         first: {type: String},
         last: {type: String}

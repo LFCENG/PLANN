@@ -62,38 +62,53 @@
     <!-- END OF ACCOUNT -->
     <!-- PROJECTS -->
     <md-content layout-padding ng-if="currentNavItem =='projects'">
+      <div ng-controller="UploadController">
+        <button ng-click="showBulkUploadPrompt($event)" class="btn btn-default-outline"> {{'BULK_UPLOAD' | translate }} </button>
+      </div>
       <h3>{{'SETTINGS_PROJECTS_H1' | translate}}</h3>
       <div class="table-full">
         <div class="table-responsive">
           <table class="table tablesorter {sortlist: [[0,1]}" data-sort="table">
             <thead>
               <tr>
-                <th></th>
                 <th>{{'FIELD_LABEL' | translate }}</th>
                 <th>{{'FIELD_TYPE' | translate}}</th>
                 <th>{{'REQUIRED' | translate }}</th>
+                <th></th>
               </tr>
             </thead>
             
             <tbody>
               <tr ng-repeat="field in fields">
-                <td><md-button class="md-warn">delete</md-button></td>
-                <td>{{field.name | translate}}</td>
-                <td>{{field.type | translate}}</td>
-                <td>{{field.required | translate}}</td>
+                <td ng-hide="field.default">
+                  <md-input-container style="margin: 0;height: 36px;">
+                    <input aria-label="Field Label" ng-model="field.label" type="text"></input>
+                  </md-input-container>
+                </td>
+                <td ng-show="field.default">
+                  {{field.name | translate}}
+                </td>
+                <td ng-hide="field.default">
+                  <md-input-container style="margin: 0; height: 36px" class="md-block" flex-gt-sm>
+                    <md-select aria-label="Field type" ng-model="field.type">
+                      <md-option ng-repeat="type in fieldTypes" value="{{type}}">
+                        {{type | translate}}
+                      </md-option>
+                    </md-select>
+                  </md-input-container>
+                </td>
+                <td ng-show="field.default">
+                  {{field.type | translate}}
+                </td>
+                <td>
+                  <md-checkbox ng-disabled="field.name=='reference' || field.name=='status'" ng-model="field.required" aria-label="required"></md-checkbox>
+                </td>
+                <td><md-button ng-disabled="!{{field.allowDelete}}" ng-click="delete(field, $index)" class="md-warn">{{'DELETE' | translate }}</md-button></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-
-
-
-
-
-
-
-
     </md-content>
     <!-- END OF PROJECTS -->
   </md-content>

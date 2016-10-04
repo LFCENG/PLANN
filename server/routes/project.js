@@ -8,7 +8,7 @@ var passport = require('passport');
 var TogglClient = require('toggl-api');
 var InvoiceXpressClient = require('invoicexpress');
 var multer  = require('multer');
-var upload = multer({ dest: 'uploads/' });
+var upload = multer({ dest: 'uploads/'});
 var csv = require("fast-csv");
 var fs = require('fs');
 var utf8 = require('to-utf-8');
@@ -16,6 +16,10 @@ var utf8 = require('to-utf-8');
 var uploadProjectsFromCsvStream = function (file, userId) {
     var stream = fs.createReadStream(file.path);
     var csvStream = csv.parse({headers: true, ignoreEmpty: true })
+    //.validate(function (data, next) {
+    // })
+    // .on('data-invalid', function (data) {
+    // })
         .on('data', function (data) {
             var projectData = data;
             projectData.userId = userId;
@@ -45,8 +49,10 @@ router.route('/')
         } 
     })
     .post(function (req, res) {
-        var projectData = req.body;
+        var projectData = {};
+        var fields = req.body;
         projectData.userId = req.user.id;
+        projectData.fields = fields;
         var project = new Project(projectData);
         project.save(function (err, project) {
             console.log('project: ' + project);
@@ -98,6 +104,7 @@ router.route('/integrations/:integration')
             }
         });
     });
+
 router.route('/fileupload')
     .post(upload.single('file'), function (req, res) {
         var userId = req.user.id;
@@ -107,16 +114,6 @@ router.route('/fileupload')
         console.log(file);
         uploadProjectsFromCsvStream(file, userId);
         res.sendStatus(200);
-
-        /*
-          var projectData = req.body;
-          projectData.userId = req.user.id;
-          var project = new Project(projectData);
-          project.save(function (err, project) {
-          console.log('project: ' + project);
-          res.status(200).send(project);
-          });
-        */
     });
 
 module.exports = router;

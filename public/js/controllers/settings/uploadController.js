@@ -1,24 +1,16 @@
 'use strict'
 define(['app'], function (app) {
     app.controller('UploadController', ['$scope','$mdDialog','$mdMedia', 'FileUpload',function ( $scope, $mdDialog, $mdMedia, fileUpload) {
-        $scope.uploadFile = function(){
-            var file = $scope.projectsFile;
-            
-            console.log('file is ' );
-            console.dir(file);
-            
-            var uploadUrl = "/project/fileUpload";
-            fileUpload.uploadFileToUrl(file, uploadUrl);
-        };
         
         $scope.showBulkUploadPrompt = function (evt) {
-            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')) && $scope.customFullscreen;
             $mdDialog.show({
                 controller: DialogController,
-                template: dialogTemplate,
+                templateUrl: 'templates/directives/uploadDialog.html',
                 parent: angular.element(document.body),
                 targetEvent: evt,
-                clickOutsideToClose:true,
+                clickOutsideToClose: true,
+                escapeToClose: true,
                 fullscreen: useFullScreen
             })
                 .then(function(answer) {
@@ -31,8 +23,16 @@ define(['app'], function (app) {
             }, function(wantsFullScreen) {
                 $scope.customFullscreen = (wantsFullScreen === true);
             });
-        }
+        };
+        
         function DialogController($scope, $mdDialog) {
+            $scope.validateFile = function () {};
+            $scope.uploadFile = function(){
+                var file = $scope.projectsFile;
+                var uploadUrl = "/project/fileUpload";
+                fileUpload.uploadFileToUrl(file, uploadUrl);
+            };
+            
             $scope.hide = function() {
                 $mdDialog.hide();
             };
@@ -43,23 +43,5 @@ define(['app'], function (app) {
                 $mdDialog.hide(answer);
             };
         }
-        var dialogTemplate = 
-            '<div ng-controller="UploadController">' + 
-            '<md-dialog aria-label="List dialog">' +
-            '  <md-dialog-content>'+
-            '    <input type = "file" file-model="projectsFile"/>' + 
-            '  </md-dialog-content>' +
-            '  <md-dialog-actions>' +
-            '    <md-button ng-click="closeDialog()" class="md-primary">' +
-            '      Close Dialog' +
-            '    </md-button>' +
-            '  </md-dialog-actions>' +
-            '  <md-dialog-actions>' +
-            '    <md-button ng-click="uploadFile()" class="md-primary">' +
-            '      Upload File' +
-            '    </md-button>' +
-            '  </md-dialog-actions>' +
-            '</md-dialog>' + 
-            '</div>';
     }]);
 });

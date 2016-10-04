@@ -1,23 +1,17 @@
 'use strict'
 define(['app'], function (app) {
-    app.register.controller('ProjectsController', ['Project', '$scope','$rootScope', '$http', '$timeout', '$mdSidenav', '$log','$sce','$translate',  function (Project, $scope, $rootScope, $http, $timeout, $mdSidenav, $log, $sce, $translate) {
+    app.register.controller('ProjectsController', ['Project', 'Fields', '$scope','$rootScope', '$http', '$timeout', '$mdSidenav', '$log','$sce','$translate',  function (Project, Fields, $scope, $rootScope, $http, $timeout, $mdSidenav, $log, $sce, $translate) {
         $scope.$watch(function () {
             return Project.query();
         }, function (projects) {
             $scope.projects = projects;      
         });
-        $scope.tableColumns = [
-            {key: 'reference', checked: true},
-            {key: 'title', filter: null, checked: true},
-            {key: 'client', filter: null, checked: true},
-            {key: 'description', filter: null, checked: true},
-            {key: 'status', filter: null, checked: true},
-            {key: 'deadline', filter: 'date', filterValue: 'dd MMMM yyyy', checked: true},
-            {key: 'finishedDate', filter: 'date', filterValue: 'dd MMMM yyyy', checked: true},
-            {key: 'time', filter: 'time', filterValue: 'h', checked: true},
-            {key: 'price', filter: 'currency', filterValue: '&euro; ', checked: true}, 
-            {key: 'created', filter: 'date', filterValue: 'dd MMMM yyyy', checked: true}
-        ];
+        $scope.$watch(function () {
+            return Fields.get();
+        }, function (fields) {
+            $scope.fields = fields;
+        });
+
         $scope.trustHtml = function (text) {
             return $sce.trustAsHtml(text);
         };

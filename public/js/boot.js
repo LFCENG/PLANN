@@ -59,6 +59,7 @@ require([
     'services/routeResolver',
     'services/gravatar',
     'services/project',
+    'services/fields',
     'services/account',
     'services/fileUpload',
     // 'resources/project',
@@ -72,7 +73,7 @@ require([
     'filters/pickerFilter',
     'controllers/projects/projectsCreateController',
     'controllers/navigation/languageController',
-    'controllers/file/uploadController'
+    'controllers/settings/uploadController'
 ], function () {
     'use strict';
     angular.bootstrap(document, ['plann']);

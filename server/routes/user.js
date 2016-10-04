@@ -2,12 +2,13 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var ProjectFields = require('../models/projectFields');
 var passport = require('passport');
 var nodemailer = require('nodemailer');
 var async = require('async');
 var crypto = require('crypto');
 var config = 
-    { mail: require('../config/mail') }
+    { mail: require('../config/mail') };
 
 router.route('/')
     .get(function (req, res) {
@@ -21,7 +22,8 @@ router.route('/')
 router.route('/account')
     .get(function (req, res) {
         res.status(200).send(req.user);
-    })
+    });
+
 router.route('/account/:id')
     .put(function (req, res) {
         var userData = req.body;
@@ -130,9 +132,12 @@ router.route('/register')
             req.body.password,
             function (err, user) {
                 if (err) {
-                    return res.render('register', {msg: err.message});
+                    console.log("ERROR: " + err.message);
+                    return res.render('register', {msg: [err.message]});
                 }
                 passport.authenticate('local')(req, res, function () {
+                    var projectFields = new ProjectFields({userId: user._id});
+                    projectFields.save();
                     req.session.save(function (err){
                         if (err) {
                             return next(err);

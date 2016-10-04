@@ -1,0 +1,33 @@
+<md-dialog aria-label="List dialog" ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>{{'BULK_UPLOAD' | translate }}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon class="icon icon-cross" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-content layout-padding>
+    
+    <md-dialog-content layout="row">
+      <div></div>
+      <input class="ng-hide" ng-click="validateFile()" file-model="projectsFile" id="input-file-id" multiple type="file" />
+      <label for="input-file-id" class="md-button">{{'CHOOSE_FILE' | translate }}</label>
+      <div style="vertical-align: middle; line-height: 36px;margin: 6px;">
+        <span ng-show="projectsFile">{{projectsFile.name}}</span>
+        <span ng-hide="projectsFile">{{'NO_FILE' | translate}}</span>
+
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout"row">
+      <md-button ng-click="cancel()" class="md-primary">
+        {{'CLOSE' | translate }}
+      </md-button>
+      <md-button ng-enabled="projectsFile" ng-click="uploadFile()" class="md-primary">
+        {{'UPLOAD' | translate }}
+      </md-button>
+    </md-dialog-actions>
+  </md-content>
+</md-dialog>
+
