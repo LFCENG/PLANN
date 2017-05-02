@@ -1,12 +1,17 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var Project = new Schema({
+var fieldsValueSchema = new Schema({
+    referenceName: {type: String},
+    value: {type: Schema.Types.Mixed}
+});
+
+var ProjectSchema = new Schema({
     created: {type : Date, default: Date.now},
-    userId: { type: mongoose.Schema.ObjectId },
+    userId: { type: Schema.ObjectId },
+    //fields: [fieldsValueSchema]
     fields: { type: Schema.Types.Mixed}
 });
 
-
-module.exports = mongoose.model('Project', Project);
+module.exports = mongoose.model('Project', ProjectSchema);
 

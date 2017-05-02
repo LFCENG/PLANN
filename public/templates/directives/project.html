@@ -1,46 +1,65 @@
 <div>
   <md-content ng-controller="ProjectsCreateController" layout-padding>
     <form class="project-form">
+      
+      <!-- Required Fields -->
       <md-input-container>
         <label for="projectReference">{{'PROJECT_REFERENCE' | translate}}</label>
         <input type="text" id="projectReference" 
-               ng-model="project.reference" md-autofocus>
+               ng-model="project.fields.reference" md-autofocus>
       </md-input-container>
       <md-input-container>
         <label for="projectTitle">{{'PROJECT_TITLE' | translate }}</label>
         <input type="text" id="projectTitle"
-               ng-model="project.title">
+               ng-model="project.fields.title">
+      </md-input-container>
+      <md-input-container>
+        <label for="projectStatus">{{ 'PROJECT_STATUS' | translate }}</label>
+        <input type="text" id="projectStatus"
+               ng-model="project.fields.status">
       </md-input-container>
       <md-input-container>
         <label for="projectClient">{{ 'CLIENT' | translate }}</label>
         <input type="text" id="projectClient"
-               ng-model="project.client">
+               ng-model="project.fields.client">
       </md-input-container>
-      <md-input-container>
-        <label for="projectOwner">{{ 'OWNER' | translate }}</label>
-        <input type="text" id="projectOwner"
-               ng-model="project.owner">
-      </md-input-container>
-      <md-button ng-click="toggleCollapse()">{{collapsed ? 'HIDE_FILEDS' : 'SHOW_FIELDS' | translate}}</md-button>
-      <div ng-show="collapsed">
+      
+      <!-- More fields -->
+      <div ng-show="fields.length > 4">
+        <md-button ng-click="toggleCollapse()">{{collapsed ? 'HIDE_FILEDS' : 'SHOW_FIELDS' | translate}}</md-button>
+        <div ng-show="collapsed">
+          <md-input-container ng-repeat="field in fields" ng-if="!field.isRequired">
+            <label> {{field.readableName}}</label>
+            <input type="text" ng-model="project.fields[field.referenceName]"> 
+          </md-input-container>
+        </div>   
+      </div>
+      
+      
+      
+      
+      
+      <div hide-gt-sm>
+        <md-input-container>
+          <label for="projectOwner">{{ 'OWNER' | translate }}</label>
+          <input type="text" id="projectOwner"
+                 ng-model="project.fields.owner">
+        </md-input-container>
         <md-input-container>
           <label for="projectDescription"> {{'PROJECT_DESCRIPTION' | translate }}</label>
           <input type="text" id="projectDescription"
-                 ng-model="project.description">
+                 ng-model="project.fields.description">
         </md-input-container>
         <md-input-container>
           <label for="projectAddress"> {{'CONSTRUCTION_ADDRESS' | translate }}</label>
           <input type="text" id="projectAddress"
-                 ng-model="project.address">
-        </md-input-container>
-        <md-input-container>
-          <label for="projectStatus">{{ 'PROJECT_STATUS' | translate }}</label>
-          <input type="text" id="projectStatus"
-                 ng-model="project.status">
+                 ng-model="project.fields.address">
         </md-input-container>
         <label for="projectDeadline">{{ 'PROJECT_DEADLINE_DATE' | translate}}</label>
-        <md-datepicker id="projectDeadline" md-placeholder="Enter date" ng-model="project.deadline" md-open-on-focus></md-datepicker>
+        <md-datepicker id="projectDeadline" md-placeholder="Enter date" ng-model="project.fields.deadline" md-open-on-focus></md-datepicker>
       </div>
+    
+    
     </form>
     <ul class='errors' ng-if="errors">
       <li ng-repeat="error in errors">{{error}}</li>

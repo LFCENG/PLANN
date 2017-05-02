@@ -77,8 +77,8 @@ define(['app'], function (app) {
                 
                 for (let i = 0, project; project = projects[i]; i++) {
                     for (let j = 0, entry; entry = togglProjects[j]; j++) {
-                        if (entry.name.indexOf(project.reference) !== -1) {
-                            project.time = entry.time;
+                        if (entry.name.indexOf(project.fields.reference) !== -1) {
+                            project.fields.time = entry.time;
                         }
                     }
                 }
@@ -97,8 +97,8 @@ define(['app'], function (app) {
                 
                 for (let i = 0, project; project = projects[i]; i++) {
                     for (let j = 0, entry; entry = iXprojects[j]; j++) {
-                        if (typeof entry.name == "string" && entry.name.indexOf(project.reference) !== -1) {
-                            project.price = entry.price;
+                        if (typeof entry.name == "string" && entry.name.indexOf(project.fields.reference) !== -1) {
+                            project.fields.price = entry.price;
                         }
                     }
                 }

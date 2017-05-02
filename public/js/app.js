@@ -9,7 +9,7 @@ define(['routes', 'moment'], function (routes, moment) {
             .primaryPalette('plannYellow', {'default':'500'})
             .accentPalette('plannYellow', {'default': '500'})
             .warnPalette('deep-orange');
-        
+        $mdThemingProvider.theme('darkTheme').dark();
     });
     app.config(['$translateProvider', function ($translateProvider) {
         $translateProvider

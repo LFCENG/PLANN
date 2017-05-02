@@ -1,10 +1,15 @@
 'use strict'
 define(['app'], function (app) {
-    app.controller('ProjectsCreateController', ['Project','$scope', '$timeout', '$mdSidenav', '$log', function (Project, $scope, $timeout, $mdSidenav, $log) {
+    app.controller('ProjectsCreateController', ['Project','Fields', '$scope', '$timeout', '$mdSidenav', '$log', function (Project, Fields, $scope, $timeout, $mdSidenav, $log) {
         $scope.$watch(function () {
             return Project.query();
         }, function (projects) {
             $scope.projects = projects;      
+        });
+        $scope.$watch(function () {
+            return Fields.get();
+        }, function (fields) {
+            $scope.fields = fields;
         });
         $scope.collapsed = false;
         $scope.toggleCollapse = function () {

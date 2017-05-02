@@ -22,15 +22,15 @@
       <md-menu md-offset="0 55">
         <md-button ng-click="$mdOpenMenu($event)" aria-label="Filter Columns">{{'FILTER_COLUMNS' | translate}}</md-button>
         <md-menu-content width="2">
-          <md-menu-item ng-repeat="column in tableColumns">
-            <md-checkbox style="margin-left: 10px" class="md-primary" ng-model="column.checked" aria-label="column.key">
-              {{column.label | translate }}
+          <md-menu-item ng-repeat="column in fields">
+            <md-checkbox style="margin-left: 10px" class="md-primary" ng-model="column.checked" aria-label="column.readableName">
+              {{column.readableName | translate }}
             </md-checkbox>
           </md-menu-item>
         </md-menu-content>
       </md-menu>
-      <md-button ng-click="fetchTogglTimes()" class="btn btn-primary-outline">Get Toggl Times</md-button>
-      <md-button ng-click="fetchInvoiceXpressPrice()" class="btn btn-primary-outline">Get Toggl Times</md-button>
+      <md-button ng-click="fetchTogglTimes()" class="btn btn-primary-outline">Sync Toggl</md-button>
+      <md-button ng-click="fetchInvoiceXpressPrice()" class="btn btn-primary-outline">Sync InvoiceXpress</md-button>
     </div>
   </div>
   <div ng-show="searchCollapsed" class="search-toolbar animate-show">
@@ -41,6 +41,8 @@
     <md-datepicker md-placeholder="{{'END_DATE' | translate }}" ng-model="endDateSearch" md-open-on-focus>
     </md-datepicker>
   </div>
+  
+  <!-- TABLE MOBILE -->
   <div hide-gt-sm>
     <md-content>
       <md-list flex>
@@ -54,6 +56,8 @@
       </md-list>
     </md-content>
   </div>
+
+<!-- TABLE LAPTOP --->
   <div show-gt-sm hide flex>
     <md-content flex layout-padding>
       <div class="table-full">
@@ -61,13 +65,12 @@
           <table class="table tablesorter {sortlist: [[0,1]}" data-sort="table">
             <thead>
               <tr>
-                <th ng-repeat="column in fields" ng-show="column.checked">{{column.label}}</th>
+                <th ng-repeat="column in fields" ng-show="column.checked">{{column.readableName}}</th>
               </tr>
             </thead>
-            
             <tbody>
               <tr ng-repeat="project in projects | filter: search" ng-click="toggleRight(project, $index)" on-finish-render="ngRepeatFinished">
-                <td ng-repeat="column in fields" ng-show="column.checked" ng-bind-html="project[column.name] | picker: column.type: column.filterValue" on-finish-render="ngRepeatFinished"></td>
+                <td ng-repeat="column in fields" ng-show="column.checked" ng-bind-html="project.fields[column.referenceName] | picker: column.type: column.filterValue" on-finish-render="ngRepeatFinished"></td>
               </tr>
             </tbody>
           </table>

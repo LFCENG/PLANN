@@ -4,6 +4,10 @@ var translate = function (string) {
 }
 
 var pt = {
-    "Reference" : "Referência"
+    "Reference" : "Referência",
+    "Title" : "T\u00EDtulo",
+    "Status"  : "Estado",
+    "Client" : "Cliente"
+    
 };
 module.exports = translate;

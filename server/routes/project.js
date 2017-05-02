@@ -50,9 +50,11 @@ router.route('/')
     })
     .post(function (req, res) {
         var projectData = {};
-        var fields = req.body;
+        var fields = req.body.fields;
         projectData.userId = req.user.id;
         projectData.fields = fields;
+        console.log('projectData: ');
+        console.log(projectData);
         var project = new Project(projectData);
         project.save(function (err, project) {
             console.log('project: ' + project);
