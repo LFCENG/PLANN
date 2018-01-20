@@ -5,7 +5,7 @@ var translate = function (string) {
 
 var pt = {
     "Reference" : "Referência",
-    "Title" : "T\u00EDtulo",
+    "Title" : "Título",
     "Status"  : "Estado",
     "Client" : "Cliente"
     
