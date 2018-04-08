@@ -26,7 +26,7 @@
       
       <!-- More fields -->
       <div ng-show="fields.length > 4">
-        <md-button ng-click="toggleCollapse()">{{collapsed ? 'HIDE_FILEDS' : 'SHOW_FIELDS' | translate}}</md-button>
+        <md-button ng-click="toggleCollapse()">{{collapsed ? 'HIDE_FIELDS' : 'SHOW_FIELDS' | translate}}</md-button>
         <div ng-show="collapsed">
           <md-input-container ng-repeat="field in fields" ng-if="!field.isRequired">
             <label> {{field.readableName}}</label>

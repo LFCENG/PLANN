@@ -23,7 +23,8 @@ require.config({
         angularSanitize: 'libs/angular-sanitize.min',
         moment: 'libs/moment-with-locales.min',
         navbar: 'custom/navbar',
-        tablesorter: 'libs/tablesorter.min'
+        tablesorter: 'libs/tablesorter.min',
+        papaParse: 'libs/papaparse.min'
     },
     
     shim: {
@@ -45,13 +46,14 @@ require.config({
         tablesorter: ['jquery'],
         navbar: ['tablesorter'],
         moment: {'exports': 'moment'},
-        app: ['angular', 'angularRoute','angularResource',  'toolkit', 'markdown', 'navbar', 'angularMaterial', 'moment', 'angularTranslate', 'angularTranslateLog', 'angularTranslateStaticFiles', 'angularSanitize', 'angularCookies', 'chart']
+        app: ['angular', 'angularRoute','angularResource',  'toolkit', 'markdown', 'navbar', 'angularMaterial', 'moment', 'angularTranslate', 'angularTranslateLog', 'angularTranslateStaticFiles', 'angularSanitize', 'angularCookies', 'chart', 'papaParse']
     },
 });
 
 require([
     'app',
     'moment',
+    //'papaParse',
     'angularTranslate',
     'angularTranslateLog',
     'angularTranslateStorageLocal',

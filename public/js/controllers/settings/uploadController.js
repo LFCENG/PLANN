@@ -1,6 +1,6 @@
 'use strict'
 define(['app'], function (app) {
-    app.controller('UploadController', ['$scope','$mdDialog','$mdMedia', 'FileUpload',function ( $scope, $mdDialog, $mdMedia, fileUpload) {
+    app.controller('UploadController', ['$scope','$mdDialog','$mdMedia', 'FileUpload', function ( $scope, $mdDialog, $mdMedia, fileUpload) {
         
         $scope.showBulkUploadPrompt = function (evt) {
             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')) && $scope.customFullscreen;
@@ -26,9 +26,14 @@ define(['app'], function (app) {
         };
         
         function DialogController($scope, $mdDialog) {
-            $scope.validateFile = function () {};
+            $scope.validateFile = function () {
+            console.log('validating...');    
+
+            };
             $scope.uploadFile = function(){
                 var file = $scope.projectsFile;
+                
+
                 var uploadUrl = "/project/fileUpload";
                 fileUpload.uploadFileToUrl(file, uploadUrl);
             };

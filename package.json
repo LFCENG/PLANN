@@ -28,6 +28,7 @@
     "grunt-env": "^0.4.4",
     "grunt-express": "^1.4.1",
     "grunt-parallel": "^0.5.1",
+    "iconv-lite": "^0.4.19",
     "invoicexpress": "^1.0.0",
     "mongoose": "^5.0.1",
     "multer": "^1.3.0",

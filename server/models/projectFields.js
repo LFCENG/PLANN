@@ -25,17 +25,17 @@ ProjectFieldsSchema.pre('save', function (next) {
             {referenceName: "reference", readableName: translate("Reference"), isDefault: true, type: "string", isRequired: true, allowDelete: false},
             {referenceName: "title", readableName: translate("Title"), isDefault: true, type: "string", isRequired: true, allowDelete: false},
             {referenceName: "status", readableName: translate("Status"), isDefault: true, type: "string", isRequired: true, allowDelete: false},
-            {referenceName: "client", readableName: translate("Client"), isDefault: true, type: "string", isRequired: true, allowDelete: false}
+            {referenceName: "client", readableName: translate("Client"), isDefault: true, type: "string", isRequired: true, allowDelete: false},
             
             
-            //{referenceName: "owner", readableName: translate("Owner"), isDefault: true, type: "string", allowDelete: false},
-            //{referenceName: "address", readableName: translate("Address"), isDefault: true, type: "string"},
-            //{referenceName: "deadline", readableName: translate("Deadline"), isDefault: true, type: "date", filterValue: "dd MMMM yyyy"},
-            //{referenceName: "finishedDate", readableName: translate("Finished Date"), isDefault: true, type: "date", filterValue: 'dd MMMM yyyy'},
-            //{referenceName: "timeSpent", readableName:translate("Time Spent"), isDefault: true, type: "time", filterValue: 'h'},
-            //{referenceName: "description", readableName: translate("Description"), isDefault: true, type: "string"},
-            //{referenceName: "price", readableName: translate("Price"), isDefault: true, type: "currency", filterValue: '&euro; '},
-            //{referenceName: "quoteReference", readableName: translate("Quote Reference"), isDefault: true, type: "string"}
+            {referenceName: "owner", readableName: translate("Owner"), isDefault: true, type: "string", allowDelete: false},
+            {referenceName: "address", readableName: translate("Address"), isDefault: true, type: "string"},
+            {referenceName: "deadline", readableName: translate("Deadline"), isDefault: true, type: "date", filterValue: "dd MMMM yyyy"},
+            {referenceName: "finishedDate", readableName: translate("Finished Date"), isDefault: true, type: "date", filterValue: 'dd MMMM yyyy'},
+            {referenceName: "timeSpent", readableName:translate("Time Spent"), isDefault: true, type: "time", filterValue: 'h'},
+            {referenceName: "description", readableName: translate("Description"), isDefault: true, type: "string"},
+            {referenceName: "price", readableName: translate("Price"), isDefault: true, type: "currency", filterValue: '&euro; '},
+            {referenceName: "quoteReference", readableName: translate("Quote Reference"), isDefault: true, type: "string"}
 
             
         );

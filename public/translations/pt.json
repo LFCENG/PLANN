@@ -19,7 +19,7 @@
 "PROJECT_TITLE" : "Título",
 "PROJECT_STATUS" : "Estado",
 "CLIENT" : "Cliente",
-"SHOW_FIELDS" : "Mostrar campos",
+"SHOW_FIELDS" : "Mostrar mais campos",
 "HIDE FIELDS" : "Esconder campos",
 "CREATE_PROJECT" : "Criar projeto",
 "DELETE" : "Apagar",
@@ -58,5 +58,11 @@
 "DELETE" : "Apagar",
 
 "BUTTON_LANG_EN" : "Inglês",
-"BUTTON_LANG_PT" : "Português"
+"BUTTON_LANG_PT" : "Português",
+
+"CHOOSE_FILE" : "Escolher Ficheiro",
+"NO_FILE" : "Vazio",
+"UPLOAD" : "Enviar",
+"FIELDS" : "Definir Campos"
+
 }

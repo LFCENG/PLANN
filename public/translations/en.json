@@ -58,8 +58,11 @@
 "DELETE" : "Delete",
 
 "BUTTON_LANG_EN" : "English",
-"BUTTON_LANG_PT" : "Portuguese"
+"BUTTON_LANG_PT" : "Portuguese",
 
-
+"CHOOSE_FILE" : "Choose File",
+"NO_FILE" : "Empty",
+"UPLOAD" : "UPLOAD",
+"FIELDS" : "Customize Fields"
 
 }

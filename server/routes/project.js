@@ -12,25 +12,33 @@ var upload = multer({ dest: 'uploads/'});
 var csv = require("fast-csv");
 var fs = require('fs');
 var utf8 = require('to-utf-8');
+var iconv = require('iconv-lite');
 
 var uploadProjectsFromCsvStream = function (file, userId) {
+    console.log(file);
     var stream = fs.createReadStream(file.path);
+    console.log(file.path);
     var csvStream = csv.parse({headers: true, ignoreEmpty: true })
     //.validate(function (data, next) {
     // })
     // .on('data-invalid', function (data) {
     // })
         .on('data', function (data) {
-            var projectData = data;
+            console.log(' *****');
+            console.log(' data chunk: ');
+            var projectData = {};
+            projectData.fields = data;
             projectData.userId = userId;
             console.log(projectData);
+            console.log(' **** ');
             var project = new Project(projectData);
             project.save();
         })
         .on('end', function () {
             console.log('done');
         });
-    stream.pipe(utf8()).pipe(csvStream);
+    //    stream.pipe(utf8()).pipe(csvStream);
+    stream.pipe(iconv.decodeStream('win1252')).pipe(csvStream);
 };
 
 router.route('/')

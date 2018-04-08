@@ -6,13 +6,14 @@ define(['app'], function (app){
         this.uploadFileToUrl = function (file, uploadUrl) {
             var fd = new FormData();
             fd.append('file', file);
-            
             $http.post(uploadUrl, fd, {
                 transformRequest: angular.identity,
-                headers: {'Content-Type': undefined}
+                headers: {'Content-Type': undefined, 'charset': 'windows-1252'}
+                
             })
             
-                .success(function(){
+                .success(function(res){
+                    console.log(res);;
                 })
             
                 .error(function(){
