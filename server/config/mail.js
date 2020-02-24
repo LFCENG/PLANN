@@ -4,6 +4,6 @@ module.exports = {
     secure: true, // use SSL    
     auth: {
         user: "luis.correia@plann.pt",
-        pass: "carac0l1182"
+        pass: "password"
     }
 }
